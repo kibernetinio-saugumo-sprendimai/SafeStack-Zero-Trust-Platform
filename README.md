@@ -4,6 +4,10 @@ Local-first policy decision engine for devices, users, resources and actions.
 It applies **default deny**, checks device posture, records every decision in
 SQLite, and provides an Ed25519 signing foundation for policy bundles.
 
+## Components
+
+The platform includes the Zero Trust decision engine and the [SafeStack Identity](docs/IDENTITY.md) registry.
+
 ## Quick start
 
 ```bash
