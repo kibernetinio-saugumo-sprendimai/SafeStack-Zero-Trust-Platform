@@ -15,3 +15,8 @@ python3 -m venv .venv && .venv/bin/pip install -e .
 
 An authorization failure exits with code 2. This MVP does not change firewall
 rules or grant OS privileges. See [THREAT-MODEL.md](docs/THREAT-MODEL.md).
+
+
+## License
+
+Released under the [MIT License](LICENSE).
