@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "safestack-zero-trust"
+version = "0.1.0"
+description = "Local-first zero trust policy and device decision engine"
+requires-python = ">=3.9"
+dependencies = ["cryptography>=42,<50"]
+[project.scripts]
+safestack-zt = "zt.cli:main"
+[tool.setuptools.packages.find]
+include = ["zt*"]
