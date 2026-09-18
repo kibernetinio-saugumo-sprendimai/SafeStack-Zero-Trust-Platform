@@ -10,6 +10,8 @@ def digest(path):
 def sbom(root):
     root=Path(root); files=[]
     for path in sorted(root.rglob('*')):
+        if path.is_symlink():
+            continue
         if path.is_file() and '.git' not in path.parts and '__pycache__' not in path.parts:
             files.append({'path':str(path.relative_to(root)),'sha256':digest(path),'size':path.stat().st_size})
     return {'bomFormat':'CycloneDX','specVersion':'1.5','components':files}

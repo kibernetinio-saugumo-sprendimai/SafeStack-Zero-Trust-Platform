@@ -1,11 +1,12 @@
 """Local identity registry: PBKDF2 password verification, roles and audit events."""
 import base64, hashlib, hmac, secrets
 from datetime import datetime, timezone
+from typing import Optional
 from .store import Store
 
 ITERATIONS = 600_000
 
-def hash_password(password: str, salt: bytes | None = None) -> str:
+def hash_password(password: str, salt: Optional[bytes] = None) -> str:
     if not isinstance(password, str) or len(password) < 12:
         raise ValueError('password must contain at least 12 characters')
     salt = salt or secrets.token_bytes(16)

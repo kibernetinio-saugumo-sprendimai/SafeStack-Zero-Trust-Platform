@@ -1,5 +1,6 @@
 """Small deterministic SOC event collector and detector."""
 import json
+import os
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,7 +14,8 @@ def append_event(path,event):
     errors=validate_event(event)
     if errors: raise ValueError('; '.join(errors))
     p=Path(path); p.parent.mkdir(parents=True,exist_ok=True)
-    with p.open('a',encoding='utf-8') as f: f.write(json.dumps(event,sort_keys=True)+'\n')
+    fd=os.open(p, os.O_WRONLY|os.O_CREAT|os.O_APPEND|getattr(os,'O_NOFOLLOW',0), 0o600)
+    with os.fdopen(fd,'a',encoding='utf-8') as f: f.write(json.dumps(event,sort_keys=True)+'\n')
 def detect(events, failed_threshold=5):
     failures=Counter(e.get('subject','unknown') for e in events if e.get('kind')=='authentication' and e.get('success') is False)
     alerts=[]
